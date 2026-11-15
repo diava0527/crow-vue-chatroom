@@ -1,5 +1,9 @@
 # 网络聊天室
 
+[![Release](https://img.shields.io/badge/release-v1.0.0-brightgreen)](https://github.com/diava0527/crow-vue-chatroom/releases/tag/v1.0.0)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64-lightgrey)](https://github.com/diava0527/crow-vue-chatroom/releases)
+
 基于 **C++17 + Crow + WebSocket + MySQL** 的模块化网络聊天室。
 
 一个 Crow 进程同时承担三件事：HTTP 业务接口、WebSocket 实时通信、前端静态页面托管。页面和接口天然同源，只需暴露一个端口；对外部署时由 Nginx 终止 TLS 并反向代理。业务数据（用户、大厅消息、私聊会话与消息）持久化在 MySQL，登录态与在线状态保存在进程内存。
@@ -112,6 +116,18 @@ chatroom/
 ├─ .env.example                 配置模板
 └─ README.md
 ```
+
+## 下载即用（Windows x64）
+
+不想装 Visual Studio / CMake / Boost，可以直接用预编译包：
+
+1. 到 [Releases](https://github.com/diava0527/crow-vue-chatroom/releases/latest) 下载 `crow-vue-chatroom-v1.0.0-win-x64.zip`
+2. 解压后进入目录，在 PowerShell 里执行 `./start-backend.ps1`
+3. 按提示输入 MySQL 密码，浏览器打开 <http://localhost:8080/>
+
+压缩包内已包含后端 exe、MySQL 8.0 客户端 DLL、VC++ 运行库和 Web 前端产物，**不需要 Visual Studio / CMake / Boost**；但数据库仍需本机安装 MySQL 8.0，按下面第 0、1 步装好并建库建账号即可。
+
+预编译包只提供 Windows x64；其他平台请按下面的「快速开始」从源码编译。
 
 ## 快速开始
 
@@ -466,3 +482,9 @@ set -a; . ./.env; set +a
   - `2)返回值类型 类型原因 (哪个接口调用)`
   - `3)参数类型 类型原因 (为什么是这个参数，这个参数符合代码逻辑的哪个要求)`
 - 改动代码后重新编译，停掉旧进程再 `./start-backend.ps1`；运行中的进程不会自动加载新代码。
+
+## 许可证
+
+[MIT](LICENSE)。
+
+发布包内的 `libmysql.dll`、`libssl-3-x64.dll`、`libcrypto-3-x64.dll` 来自 Oracle MySQL 8.0，按其 GPLv2（FOSS 例外）条款分发，仅作为运行依赖随包提供。

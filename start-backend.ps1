@@ -59,6 +59,12 @@ foreach ($name in $defaults.Keys) {
 }
 
 # 3. 找最新编译出的可执行文件（先确认程序存在，再问密码）
+# 发布包布局：exe 与脚本同级，优先使用
+$localExe = Join-Path $projectDirectory 'browser_chatroom_architecture.exe'
+if (!$ExePath -and (Test-Path -LiteralPath $localExe -PathType Leaf)) {
+    $ExePath = $localExe
+}
+
 if ($ExePath) {
     if (!(Test-Path -LiteralPath $ExePath -PathType Leaf)) {
         throw "指定的可执行文件不存在：$ExePath"
